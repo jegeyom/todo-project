@@ -1,0 +1,38 @@
+<h1 id="page-title"><%= title %></h1>
+<% layout('layout') -%>
+<% if (everyauth.loggedIn) { %>
+
+<div>
+  <center>
+    Hi, <%= user.name || user.id %>. Good to see you! <a href="/logout">Log out</a>
+  </center>
+</div>
+
+<div id="list">
+  <form action="/create" method="post" accept-charset="utf-8">
+    <div class="item-new">
+      <input class="input" type="text" name="content" />
+    </div>
+  </form>
+
+<% todos.forEach( function ( todo ){ %>
+  <div class="item">
+    <a class="update-link" href="/edit/<%= todo._id %>" title="Update this todo item"><%= todo.content %></a>
+    <a class="del-btn" href="/destroy/<%= todo._id %>" title="Delete this todo item">Delete</a>
+  </div>
+<% }); %>
+
+</div>
+
+<% } else { %>
+
+<div>
+  <center>
+    You are not logged in. <br>
+    Please <a href="/login">login</a> or <a href="/signup">sign up</a>. <br>
+    <br>
+    Sign in with <a href="/auth/github">Github</a>.
+  </center>
+</div>
+
+<% } %>
